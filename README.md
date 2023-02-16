@@ -34,7 +34,7 @@ module.exports = {
 Then you can use the icons in your HTML:
 
 ```html
-<!-- pattern: i-{collection_name}-{icon_name} ->
+<!-- pattern: i-{collection_name}-{icon_name} -->
 <span class="i-mdi-home"></span>
 ```
 
