@@ -4,6 +4,8 @@
 
 # @egoist/tailwindcss-icons
 
+> Use any icon from [Iconify](https://iconify.design/)
+
 [![npm version](https://badgen.net/npm/v/@egoist/tailwindcss-icons)](https://npm.im/@egoist/tailwindcss-icons) [![npm downloads](https://badgen.net/npm/dm/@egoist/tailwindcss-icons)](https://npm.im/@egoist/tailwindcss-icons)
 
 ## Install
@@ -34,6 +36,8 @@ Then you can use the icons in your HTML:
 ```html
 <span class="i-mdi-home"></span>
 ```
+
+Search the icon you want to use: https://icones.js.org
 
 ## Sponsors
 
