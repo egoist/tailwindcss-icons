@@ -34,10 +34,11 @@ module.exports = {
 Then you can use the icons in your HTML:
 
 ```html
+<!-- pattern: i-{collection_name}-{icon_name} ->
 <span class="i-mdi-home"></span>
 ```
 
-Search the icon you want to use: https://icones.js.org
+Search the icon you want to use here: https://icones.js.org
 
 ## Sponsors
 
