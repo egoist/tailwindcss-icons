@@ -1,7 +1,7 @@
 {
-  "name": "my-ts-lib",
+  "name": "@egoist/tailwindcss-icons",
   "version": "0.0.0",
-  "description": "My awesome typescript library",
+  "description": "Icons utility for TailwindCSS",
   "publishConfig": {
     "access": "public"
   },
@@ -16,17 +16,29 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build-fast": "tsup src/index.ts --format cjs,esm",
-    "build": "pnpm run build-fast -- --dts-resolve",
+    "build-fast": "pnpm gen-types && tsup src/index.ts --format cjs,esm",
+    "build": "pnpm run build-fast --dts-resolve",
     "test": "vitest run",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "gen-types": "node ./gen-types.mjs"
   },
   "license": "MIT",
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
+    "@iconify/json": "^2.2.22",
+    "@iconify/types": "^2.0.0",
+    "@types/node": "^18.13.0",
+    "postcss": "^8.4.21",
     "prettier": "2.8.4",
+    "tailwindcss": "^3.2.6",
     "tsup": "6.6.3",
     "typescript": "4.9.5",
     "vitest": "0.28.5"
+  },
+  "dependencies": {
+    "@iconify/utils": "^2.1.3"
+  },
+  "peerDependencies": {
+    "tailwindcss": "*"
   }
 }
