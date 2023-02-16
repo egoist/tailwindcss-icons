@@ -21,7 +21,6 @@ export const iconsPlugin = ({
       if (!component) continue
 
       components[`${prefix}-${name}`] = component
-      components[`${prefix}:${name}`] = component
     }
   }
 
