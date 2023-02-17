@@ -24,7 +24,7 @@ export const iconsPlugin = ({
     }
   }
 
-  return plugin(({ matchComponents, theme }) => {
+  return plugin(({ matchComponents }) => {
     matchComponents(
       {
         i: (value) => {
