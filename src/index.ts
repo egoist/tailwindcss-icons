@@ -1,6 +1,7 @@
 import { IconifyJSON } from "@iconify/types"
 import plugin from "tailwindcss/plugin.js"
-import { generateComponent, getIconCollections } from "./core"
+import { parseIconSet } from "@iconify/utils"
+import { generateIconComponent, getIconCollections } from "./core"
 
 export { getIconCollections }
 
@@ -13,15 +14,10 @@ export const iconsPlugin = ({
 
   for (const prefix of Object.keys(collections)) {
     const collection = collections[prefix]
-    for (const name of Object.keys(collection.icons)) {
-      const component = generateComponent({
-        name: name,
-        icons: collection,
-      })
-      if (!component) continue
-
-      components[`${prefix}-${name}`] = component
-    }
+    parseIconSet(collection, (name, data) => {
+      if (!data) return
+      components[`${prefix}-${name}`] = generateIconComponent(data)
+    })
   }
 
   return plugin(({ matchComponents }) => {

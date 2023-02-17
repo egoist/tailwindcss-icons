@@ -1,7 +1,7 @@
 import path from "path"
 import callerPath from "caller-path"
 import fs from "fs"
-import { IconifyJSON } from "@iconify/types"
+import { IconifyIcon, IconifyJSON } from "@iconify/types"
 import { getIconCSS, getIconData } from "@iconify/utils"
 import { createRequire } from "module"
 import { CollectionNames } from "../types"
@@ -66,6 +66,16 @@ export const getIconCollections = (
   return collections
 }
 
+export const generateIconComponent = (data: IconifyIcon) => {
+  const css = getIconCSS(data, {})
+  const rules: Record<string, string> = {}
+  css.replace(/^\s+([^:]+):\s*([^;]+);/gm, (_, prop, value) => {
+    rules[prop] = value
+    return ""
+  })
+  return rules
+}
+
 export const generateComponent = ({
   name,
   icons,
@@ -75,12 +85,5 @@ export const generateComponent = ({
 }) => {
   const data = getIconData(icons, name)
   if (!data) return null
-
-  const css = getIconCSS(data, {})
-  const rules: Record<string, string> = {}
-  css.replace(/^\s+([^:]+):\s*([^;]+);/gm, (_, prop, value) => {
-    rules[prop] = value
-    return ""
-  })
-  return rules
+  return generateIconComponent(data)
 }
