@@ -26,6 +26,10 @@ test("main", async () => {
 .foo {
     @apply i-mdi-home;
 }
+
+.bar {
+    @apply i-mdi-house;
+}
 `)
 
   expect(result.css).toMatchInlineSnapshot(`
@@ -72,6 +76,27 @@ test("main", async () => {
     }
 
     .foo {
+
+        display: inline-block;
+
+        width: 1em;
+
+        height: 1em;
+
+        background-color: currentColor;
+
+        -webkit-mask: no-repeat center / 100%;
+
+        mask: no-repeat center / 100%;
+
+        -webkit-mask-image: var(--svg);
+
+        mask-image: var(--svg);
+
+        --svg: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' d='M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z'/%3E%3C/svg%3E\\")
+    }
+
+    .bar {
 
         display: inline-block;
 
