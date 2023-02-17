@@ -1,5 +1,5 @@
 import { IconifyJSON } from "@iconify/types"
-import plugin from "tailwindcss/plugin"
+import plugin from "tailwindcss/plugin.js"
 import { generateComponent, getIconCollections } from "./core"
 
 export { getIconCollections }
