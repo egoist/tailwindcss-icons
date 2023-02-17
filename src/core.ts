@@ -12,8 +12,12 @@ const req =
     : createRequire(import.meta.url)
 
 const localResolve = (cwd: string, id: string) => {
-  const resolved = req.resolve(id, { paths: [cwd] })
-  return resolved
+  try {
+    const resolved = req.resolve(id, { paths: [cwd] })
+    return resolved
+  } catch {
+    return null
+  }
 }
 
 export const getIconCollections = (
