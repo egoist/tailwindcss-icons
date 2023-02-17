@@ -1,4 +1,5 @@
 import path from "path"
+import callerPath from "caller-path"
 import fs from "fs"
 import { IconifyJSON } from "@iconify/types"
 import { getIconCSS, getIconData } from "@iconify/utils"
@@ -11,26 +12,32 @@ const req =
     ? require
     : createRequire(import.meta.url)
 
-const localResolve = (cwd: string, id: string) => {
+export const localResolve = (cwd: string, id: string) => {
   try {
     const resolved = req.resolve(id, { paths: [cwd] })
     return resolved
-  } catch {
-    return null
+  } catch (error: any) {
+    if (error.code === "MODULE_NOT_FOUND") return null
+    throw error
   }
 }
 
 export const getIconCollections = (
   include: CollectionNames[] | "all" = "all",
-) => {
-  const pkgPath = localResolve(process.cwd(), "@iconify/json/package.json")
+): Record<string, IconifyJSON> => {
+  let cwd = process.cwd()
+  if (cwd === "/") {
+    const p = callerPath()
+    if (p) {
+      cwd = path.dirname(p)
+    }
+  }
+
+  const pkgPath = localResolve(cwd, "@iconify/json/package.json")
   if (!pkgPath) {
     if (Array.isArray(include)) {
       return include.reduce((result, name) => {
-        const jsonPath = localResolve(
-          process.cwd(),
-          `@iconify-json/${name}/icons.json`,
-        )
+        const jsonPath = localResolve(cwd, `@iconify-json/${name}/icons.json`)
         if (!jsonPath) {
           throw new Error(
             `Icon collection "${name}" not found. Please install @iconify-json/${name} or @iconify/json`,
