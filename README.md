@@ -31,6 +31,8 @@ module.exports = {
 }
 ```
 
+You also need to install `@iconify/json` (full icon collections, 50MB) or `@iconify-json/{collection_name}` (individual icon package)
+
 Then you can use the icons in your HTML:
 
 ```html
