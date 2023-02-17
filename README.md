@@ -8,6 +8,8 @@
 
 [![npm version](https://badgen.net/npm/v/@egoist/tailwindcss-icons)](https://npm.im/@egoist/tailwindcss-icons) [![npm downloads](https://badgen.net/npm/dm/@egoist/tailwindcss-icons)](https://npm.im/@egoist/tailwindcss-icons)
 
+<img src="https://user-images.githubusercontent.com/8784712/219618866-e5632d23-b948-4fa1-b3d6-00581a704bca.png" alt="preview" width="700" />
+
 ## Install
 
 ```bash
