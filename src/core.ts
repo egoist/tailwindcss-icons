@@ -16,9 +16,8 @@ export const localResolve = (cwd: string, id: string) => {
   try {
     const resolved = req.resolve(id, { paths: [cwd] })
     return resolved
-  } catch (error: any) {
-    if (error.code === "MODULE_NOT_FOUND") return null
-    throw error
+  } catch {
+    return null
   }
 }
 
