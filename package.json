@@ -26,7 +26,7 @@
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
     "@iconify-json/heroicons": "^1.1.9",
-    "@iconify/json": "^2.2.22",
+    "@iconify/json": "^2.2.73",
     "@iconify/types": "^2.0.0",
     "@types/node": "^18.13.0",
     "caller-path": "^4.0.0",
