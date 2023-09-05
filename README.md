@@ -27,7 +27,7 @@ module.exports = {
   plugins: [
     iconsPlugin({
       // Select the icon collections you want to use
-      collections: getIconCollections(["mdi", "lucide"]),
+      collections: getIconCollections(["mdi", "lucide"], __dirname),
     }),
   ],
 }
