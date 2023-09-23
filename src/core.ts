@@ -60,24 +60,38 @@ export const getIconCollections = (
   return collections
 }
 
-export const generateIconComponent = (data: IconifyIcon) => {
+export type GenerateOptions = {
+  scale: number
+}
+
+export const generateIconComponent = (
+  data: IconifyIcon,
+  options: GenerateOptions,
+) => {
   const css = getIconCSS(data, {})
   const rules: Record<string, string> = {}
   css.replace(/^\s+([^:]+):\s*([^;]+);/gm, (_, prop, value) => {
-    rules[prop] = value
+    if (prop === "width" || prop === "height") {
+      rules[prop] = `${options.scale}em`
+    } else {
+      rules[prop] = value
+    }
     return ""
   })
   return rules
 }
 
-export const generateComponent = ({
-  name,
-  icons,
-}: {
-  name: string
-  icons: IconifyJSON
-}) => {
+export const generateComponent = (
+  {
+    name,
+    icons,
+  }: {
+    name: string
+    icons: IconifyJSON
+  },
+  options: GenerateOptions,
+) => {
   const data = getIconData(icons, name)
   if (!data) return null
-  return generateIconComponent(data)
+  return generateIconComponent(data, options)
 }

@@ -4,14 +4,20 @@ import { parseIconSet } from "@iconify/utils"
 import { generateIconComponent, getIconCollections } from "./core"
 import { CollectionNames } from "../types"
 import { type Optional } from "./utils"
+import { IconsOptions } from "./types"
 
 export { getIconCollections, type CollectionNames }
 
+export type IconsPluginOptions = {
+  collections: Record<string, Optional<IconifyJSONIconsData, "prefix">>
+} & IconsOptions
+
 export const iconsPlugin = ({
   collections,
-}: {
-  collections: Record<string, Optional<IconifyJSONIconsData, "prefix">>
-}) => {
+  ...options
+}: IconsPluginOptions) => {
+  const { scale = 1, prefix = "i" } = options ?? {}
+
   const components: Record<string, Record<string, string>> = {}
 
   for (const prefix of Object.keys(collections)) {
@@ -21,14 +27,16 @@ export const iconsPlugin = ({
     }
     parseIconSet(collection, (name, data) => {
       if (!data) return
-      components[`${prefix}-${name}`] = generateIconComponent(data)
+      components[`${prefix}-${name}`] = generateIconComponent(data, {
+        scale,
+      })
     })
   }
 
   return plugin(({ matchComponents }) => {
     matchComponents(
       {
-        i: (value) => {
+        [prefix]: (value) => {
           if (typeof value === "string") return components[value]
           return value
         },
