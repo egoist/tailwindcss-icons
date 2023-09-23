@@ -8,13 +8,14 @@ import { IconsOptions } from "./types"
 
 export { getIconCollections, type CollectionNames }
 
+export type IconsPluginOptions = {
+  collections: Record<string, Optional<IconifyJSONIconsData, "prefix">>
+} & IconsOptions
+
 export const iconsPlugin = ({
   collections,
-  options,
-}: {
-  collections: Record<string, Optional<IconifyJSONIconsData, "prefix">>
-  options?: IconsOptions
-}) => {
+  ...options
+}: IconsPluginOptions) => {
   const { scale = 1, prefix = "i" } = options ?? {}
 
   const components: Record<string, Record<string, string>> = {}
