@@ -44,6 +44,34 @@ Then you can use the icons in your HTML:
 
 Search the icon you want to use here: https://icones.js.org
 
+### Custom Icons
+
+You can also use custom icons with this plugin, for example:
+
+```js
+module.exports = {
+  plugins: [
+    iconsPlugin({
+      collections: {
+        foo: {
+          icons: {
+            "arrow-left": {
+              // svg body
+              body: '<path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>',
+              // svg width and height, optional
+              width: 24,
+              height: 24,
+            },
+          },
+        },
+      },
+    }),
+  ],
+}
+```
+
+Then you can use this custom icon as class name: `i-foo-arrow-left`.
+
 ## Sponsors
 
 [![sponsors](https://sponsors-images.egoist.dev/sponsors.svg)](https://github.com/sponsors/egoist)

@@ -119,3 +119,53 @@ test("main", async () => {
     "
   `)
 })
+
+test("custom icon", () => {
+  const result = postcss([
+    tailwindcss({
+      config: {
+        content: [
+          {
+            raw: '<span class="i-foo-home"></span>',
+            extension: "html",
+          },
+        ],
+        plugins: [
+          iconsPlugin({
+            collections: {
+              foo: {
+                icons: {
+                  "arrow-left": {
+                    body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>',
+                    width: 20,
+                    height: 20,
+                  },
+                },
+              },
+            },
+          }),
+        ],
+      },
+    }),
+  ]).process(`
+.foo {
+  @apply i-foo-arrow-left;
+}
+`)
+
+  expect(result.css).toMatchInlineSnapshot(`
+    "
+    .foo {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        background-color: currentColor;
+        -webkit-mask: no-repeat center / 100%;
+        mask: no-repeat center / 100%;
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        --svg: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18'/%3E%3C/svg%3E\\")
+    }
+    "
+  `)
+})
