@@ -2,8 +2,9 @@ import { IconifyJSON } from "@iconify/types"
 import plugin from "tailwindcss/plugin.js"
 import { parseIconSet } from "@iconify/utils"
 import { generateIconComponent, getIconCollections } from "./core"
+import { CollectionNames } from "../types"
 
-export { getIconCollections }
+export { getIconCollections, type CollectionNames }
 
 export const iconsPlugin = ({
   collections,
