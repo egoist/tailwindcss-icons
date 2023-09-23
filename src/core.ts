@@ -24,13 +24,8 @@ export const localResolve = (cwd: string, id: string) => {
 export const getIconCollections = (
   include: CollectionNames[] | "all" = "all",
 ): Record<string, IconifyJSON> => {
-  let cwd = process.cwd()
-  if (cwd === "/") {
-    const p = callerPath()
-    if (p) {
-      cwd = path.dirname(p)
-    }
-  }
+  const p = callerPath()
+  const cwd = p ? path.dirname(p) : process.cwd()
 
   const pkgPath = localResolve(cwd, "@iconify/json/package.json")
   if (!pkgPath) {
