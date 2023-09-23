@@ -1,6 +1,6 @@
 export interface IconsOptions {
   /**
-   * Scale related to the current font size (1em).
+   * Scale relative to the current font size (1em).
    *
    * @default 1
    */
