@@ -44,6 +44,13 @@ Then you can use the icons in your HTML:
 
 Search the icon you want to use here: https://icones.js.org
 
+### Plugin Options
+
+| Option | Type   | Default | Description                             |
+| ------ | ------ | ------- | --------------------------------------- |
+| prefix | string | `i`     | Class prefix for matching icon rules    |
+| scale  | number | `1`     | Scale relative to the current font size |
+
 ### Custom Icons
 
 You can also use custom icons with this plugin, for example:
