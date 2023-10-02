@@ -46,10 +46,11 @@ Search the icon you want to use here: https://icones.js.org
 
 ### Plugin Options
 
-| Option | Type   | Default | Description                             |
-| ------ | ------ | ------- | --------------------------------------- |
-| prefix | string | `i`     | Class prefix for matching icon rules    |
-| scale  | number | `1`     | Scale relative to the current font size |
+| Option          | Type                   | Default | Description                                        |
+| --------------- | ---------------------- | ------- | -------------------------------------------------- |
+| prefix          | string                 | `i`     | Class prefix for matching icon rules               |
+| scale           | number                 | `1`     | Scale relative to the current font size            |
+| extraProperties | Record<string, string> | `{}`    | Extra CSS properties applied to the generated CSS. |
 
 ### Custom Icons
 
