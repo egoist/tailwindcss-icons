@@ -5,6 +5,7 @@ import { IconifyIcon, IconifyJSON } from "@iconify/types"
 import { getIconCSS, getIconData } from "@iconify/utils"
 import { createRequire } from "module"
 import { CollectionNames } from "../types"
+import { GenerateOptions } from "./types"
 
 declare const TSUP_FORMAT: "esm" | "cjs"
 const req =
@@ -60,10 +61,6 @@ export const getIconCollections = (
   return collections
 }
 
-export type GenerateOptions = {
-  scale: number
-}
-
 export const generateIconComponent = (
   data: IconifyIcon,
   options: GenerateOptions,
@@ -78,6 +75,9 @@ export const generateIconComponent = (
     }
     return ""
   })
+  if (options.extraProperties) {
+    Object.assign(rules, options.extraProperties)
+  }
   return rules
 }
 
