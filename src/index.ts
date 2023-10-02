@@ -16,7 +16,7 @@ export const iconsPlugin = ({
   collections,
   ...options
 }: IconsPluginOptions) => {
-  const { scale = 1, prefix = "i" } = options ?? {}
+  const { scale = 1, prefix = "i", extraProperties = {} } = options ?? {}
 
   const components: Record<string, Record<string, string>> = {}
 
@@ -29,6 +29,7 @@ export const iconsPlugin = ({
       if (!data) return
       components[`${prefix}-${name}`] = generateIconComponent(data, {
         scale,
+        extraProperties,
       })
     })
   }
