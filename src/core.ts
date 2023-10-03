@@ -25,15 +25,19 @@ function callerPath(): string | null {
   const error = new Error()
   const stack = error.stack?.split("\n") as string[]
 
-  // first path do not contains ( and ) and is not Error
   const data = stack.find(
-    (line) => line !== "Error" && !line.includes("(") && !line.includes(")"),
+    (line) =>
+      !line.trim().startsWith("Error") &&
+      !line.includes("(") &&
+      !line.includes(")"),
   )
   if (!data) {
     return null
   }
 
-  const filePathPattern = new RegExp(/\s*at ((?:\/\S+)+):\d+:\d+/)
+  const filePathPattern = new RegExp(
+    /\s*at (\/.*|[a-zA-Z]:\\(?:([^<>:"\/\\|?*]*[^<>:"\/\\|?*.]\\|..\\)*([^<>:"\/\\|?*]*[^<>:"\/\\|?*.]\\?|..\\))?):\d+:\d+/i,
+  )
   const result = filePathPattern.exec(data)
   if (!result) {
     return null
