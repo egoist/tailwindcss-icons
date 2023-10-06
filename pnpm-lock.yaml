@@ -19,11 +19,8 @@ devDependencies:
     specifier: ^2.0.0
     version: 2.0.0
   '@types/node':
-    specifier: ^20.6.3
-    version: 20.6.3
-  caller-path:
-    specifier: ^4.0.0
-    version: 4.0.0
+    specifier: ^18.13.0
+    version: 18.13.0
   postcss:
     specifier: ^8.4.30
     version: 8.4.30
@@ -684,25 +681,6 @@ packages:
   /cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
-    dev: true
-
-  /caller-callsite@5.0.0:
-    resolution: {integrity: sha512-l3+xZHsuNlFjchy1nl1kpQwi7PhKHgtQ7MOx5ijHwlouAjnwRNjq3AlxH8SGuWiF5XAhb/mSH+c90LIDFjJKtA==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      callsites: 4.0.0
-    dev: true
-
-  /caller-path@4.0.0:
-    resolution: {integrity: sha512-18JFq7TTe4+cDKsyZETRk/IS9Xka3dRcU9VWm1C6XlkAjKPSR2bskpDSUHVQw7gvef34bi1gltzmCxToUw1oQw==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      caller-callsite: 5.0.0
-    dev: true
-
-  /callsites@4.0.0:
-    resolution: {integrity: sha512-y3jRROutgpKdz5vzEhWM34TidDU8vkJppF8dszITeb1PQmSqV3DTxyV8G/lyO/DNvtE1YTedehmw9MPZsCBHxQ==}
-    engines: {node: '>=12.20'}
     dev: true
 
   /camelcase-css@2.0.1:
