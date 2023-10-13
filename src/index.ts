@@ -1,23 +1,36 @@
 import { IconifyJSONIconsData } from "@iconify/types"
 import plugin from "tailwindcss/plugin.js"
 import { parseIconSet } from "@iconify/utils"
-import { generateIconComponent, getIconCollections } from "./core"
-import { CollectionNames } from "../types"
+import {
+  generateIconComponent,
+  getIconCollections,
+  isPackageExists,
+} from "./core"
+import { CollectionNames, availableCollectionNames } from "../types"
 import { type Optional } from "./utils"
 import { IconsOptions } from "./types"
 
 export { getIconCollections, type CollectionNames }
 
 export type IconsPluginOptions = {
-  collections: Record<string, Optional<IconifyJSONIconsData, "prefix">>
+  collections?: Record<string, Optional<IconifyJSONIconsData, "prefix">>
 } & IconsOptions
 
-export const iconsPlugin = ({
-  collections,
-  ...options
-}: IconsPluginOptions) => {
-  const { scale = 1, prefix = "i", extraProperties = {} } = options ?? {}
+export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
+  const {
+    collections: propsCollections,
+    scale = 1,
+    prefix = "i",
+    extraProperties = {},
+  } = iconsPluginOptions ?? {}
 
+  const collections =
+    propsCollections ??
+    getIconCollections(
+      availableCollectionNames.filter((name) =>
+        isPackageExists(`@iconify-json/${name}`),
+      ),
+    )
   const components: Record<string, Record<string, string>> = {}
 
   for (const prefix of Object.keys(collections)) {

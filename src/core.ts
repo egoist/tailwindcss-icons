@@ -46,6 +46,12 @@ function callerPath(): string | null {
   return result[1]
 }
 
+export const isPackageExists = (id: string) => {
+  const p = callerPath()
+  const cwd = p ? path.dirname(p) : process.cwd()
+  return Boolean(localResolve(cwd, id))
+}
+
 export const getIconCollections = (
   include: CollectionNames[] | "all" = "all",
 ): Record<string, IconifyJSON> => {

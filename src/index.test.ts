@@ -169,3 +169,51 @@ test("custom icon", () => {
     "
   `)
 })
+
+test("set collection automatically", () => {
+  const processor = postcss([
+    tailwindcss({
+      config: {
+        content: [
+          {
+            raw: "",
+            extension: "html",
+          },
+        ],
+        plugins: [iconsPlugin()],
+      },
+    }),
+  ])
+
+  const result = processor.process(`
+.foo {
+  @apply i-heroicons-arrow-left;
+}
+`)
+
+  expect(result.css).toMatchInlineSnapshot(`
+    "
+    .foo {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        background-color: currentColor;
+        -webkit-mask: no-repeat center / 100%;
+        mask: no-repeat center / 100%;
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        --svg: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18'/%3E%3C/svg%3E\\")
+    }
+    "
+  `)
+
+  expect(() => {
+    processor.process(`
+  .foo {
+    @apply i-mdi-home;
+  }
+  `).css
+  }).toThrowErrorMatchingInlineSnapshot(
+    '"<css input>:3:5: The `i-mdi-home` class does not exist. If `i-mdi-home` is a custom class, make sure it is defined within a `@layer` directive."',
+  )
+})
