@@ -21,7 +21,8 @@
     "build": "pnpm run build-fast --dts-resolve",
     "test": "vitest run",
     "prepublishOnly": "pnpm run build",
-    "gen-types": "node ./gen-types.mjs"
+    "gen-types": "node ./gen-types.mjs",
+    "prepare": "pnpm run gen-types"
   },
   "license": "MIT",
   "devDependencies": {
