@@ -13,7 +13,7 @@
 ## Install
 
 ```bash
-npm i @egoist/tailwindcss-icons
+npm i @egoist/tailwindcss-icons -D
 ```
 
 ## Usage
@@ -34,7 +34,15 @@ module.exports = {
 }
 ```
 
-You also need to install `@iconify/json` (full icon collections, 50MB) or `@iconify-json/{collection_name}` (individual icon package)
+You also need to install `@iconify/json` (full icon collections, 50MB) or `@iconify-json/{collection_name}` (individual icon package):
+
+```bash
+# install every icon:
+npm i @iconify/json -D
+
+# or install individual packages like this:
+npm i @iconify-json/mdi @iconify-json/lucide -D
+```
 
 Then you can use the icons in your HTML:
 
