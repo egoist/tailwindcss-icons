@@ -12,8 +12,17 @@ import { IconsOptions } from "./types"
 
 export { getIconCollections, type CollectionNames }
 
+type CollectionNamesAlias = {
+  [key in CollectionNames]?: string
+}
+
 export type IconsPluginOptions = {
   collections?: Record<string, Optional<IconifyJSONIconsData, "prefix">>
+  /**
+   * alias to customize collection names
+   * @default {}
+   */
+  collectionNamesAlias?: CollectionNamesAlias
 } & IconsOptions
 
 export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
@@ -22,6 +31,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     scale = 1,
     prefix = "i",
     extraProperties = {},
+    collectionNamesAlias = {},
   } = iconsPluginOptions ?? {}
 
   const collections =
@@ -40,7 +50,9 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     }
     parseIconSet(collection, (name, data) => {
       if (!data) return
-      components[`${prefix}-${name}`] = generateIconComponent(data, {
+      const collectionName =
+        collectionNamesAlias[prefix as CollectionNames] ?? prefix
+      components[`${collectionName}-${name}`] = generateIconComponent(data, {
         scale,
         extraProperties,
       })
