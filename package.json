@@ -40,7 +40,7 @@
     "vitest": "0.28.5"
   },
   "dependencies": {
-    "@iconify/utils": "^2.1.4"
+    "@iconify/utils": "^2.1.12"
   },
   "peerDependencies": {
     "tailwindcss": "*"
