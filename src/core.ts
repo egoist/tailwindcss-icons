@@ -4,6 +4,7 @@ import { IconifyIcon, IconifyJSON } from "@iconify/types"
 import { getIconCSS, getIconData } from "@iconify/utils"
 import { createRequire } from "module"
 import { CollectionNames } from "../types"
+import { callerPath } from "./utils"
 
 export type GenerateOptions = {
   /**
@@ -33,31 +34,6 @@ export const localResolve = (cwd: string, id: string) => {
   } catch {
     return null
   }
-}
-
-function callerPath(): string | null {
-  const error = new Error()
-  const stack = error.stack?.split("\n") as string[]
-
-  const data = stack.find(
-    (line) =>
-      !line.trim().startsWith("Error") &&
-      !line.includes("(") &&
-      !line.includes(")"),
-  )
-  if (!data) {
-    return null
-  }
-
-  const filePathPattern = new RegExp(
-    /\s*at (\/.*|[a-zA-Z]:\\(?:([^<>:"\/\\|?*]*[^<>:"\/\\|?*.]\\|..\\)*([^<>:"\/\\|?*]*[^<>:"\/\\|?*.]\\?|..\\))?):\d+:\d+/i,
-  )
-  const result = filePathPattern.exec(data)
-  if (!result) {
-    return null
-  }
-
-  return result[1]
 }
 
 export const isPackageExists = (id: string) => {
