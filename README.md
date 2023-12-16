@@ -90,6 +90,27 @@ module.exports = {
 
 Then you can use this custom icon as class name: `i-foo-arrow-left`.
 
+### Generate Icon Dynamically
+
+The idea is from [@iconify/tailwind](https://iconify.design/docs/usage/css/tailwind),
+thanks to the author of Iconify for the great work!
+
+If you want to install `@iconify/json` and use whatever icon you want,
+you should add another plugin to your `tailwind.config.js`.
+
+This is because we can not provide autocomplete for all icons from `@iconify/json`,
+it will make your editor slow.
+
+```js
+const { iconsPlugin, dynamicIconsPlugin } = require("@egoist/tailwindcss-icons")
+
+module.exports = {
+  plugins: [iconsPlugin(), dynamicIconsPlugin()],
+}
+```
+
+Then you can use icons dynamically like `<span class="i-[mdi-light--home]"></span>`.
+
 ## Sponsors
 
 [![sponsors](https://sponsors-images.egoist.dev/sponsors.svg)](https://github.com/sponsors/egoist)

@@ -1,6 +1,6 @@
+const { iconsPlugin, dynamicIconsPlugin } = require("../dist");
+
 module.exports = {
   content: ["./index.html"],
-  plugins: [
-    require("../dist").iconsPlugin(),
-  ],
-}
+  plugins: [iconsPlugin(), dynamicIconsPlugin()],
+};

@@ -2,13 +2,14 @@ import { IconifyJSONIconsData } from "@iconify/types"
 import plugin from "tailwindcss/plugin.js"
 import { parseIconSet } from "@iconify/utils"
 import {
+  type GenerateOptions,
   generateIconComponent,
   getIconCollections,
   isPackageExists,
 } from "./core"
+import { getDynamicCSSRules } from "./dynamic"
 import { CollectionNames, availableCollectionNames } from "../types"
 import { type Optional } from "./utils"
-import { IconsOptions } from "./types"
 
 export { getIconCollections, type CollectionNames }
 
@@ -23,7 +24,13 @@ export type IconsPluginOptions = {
    * @default {}
    */
   collectionNamesAlias?: CollectionNamesAlias
-} & IconsOptions
+  /**
+   * Class prefix for matching icon rules.
+   *
+   * @default `i`
+   */
+  prefix?: string
+} & GenerateOptions
 
 export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
   const {
@@ -71,5 +78,25 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
         values: components,
       },
     )
+  })
+}
+
+export const dynamicIconsPlugin = (
+  iconsPluginOptions?: Omit<
+    IconsPluginOptions,
+    "collections" | "collectionNamesAlias"
+  >,
+) => {
+  const {
+    prefix = "i",
+    scale = 1,
+    extraProperties = {},
+  } = iconsPluginOptions ?? {}
+
+  return plugin(({ matchComponents }) => {
+    matchComponents({
+      [prefix]: (value) =>
+        getDynamicCSSRules(value, { scale, extraProperties }),
+    })
   })
 }

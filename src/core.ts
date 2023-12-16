@@ -4,7 +4,21 @@ import { IconifyIcon, IconifyJSON } from "@iconify/types"
 import { getIconCSS, getIconData } from "@iconify/utils"
 import { createRequire } from "module"
 import { CollectionNames } from "../types"
-import { GenerateOptions } from "./types"
+
+export type GenerateOptions = {
+  /**
+   * Scale relative to the current font size (1em).
+   *
+   * @default 1
+   */
+  scale?: number
+  /**
+   * Extra CSS properties applied to the generated CSS.
+   *
+   * @default `{}`
+   */
+  extraProperties?: Record<string, string>
+}
 
 declare const TSUP_FORMAT: "esm" | "cjs"
 const req =
@@ -53,7 +67,7 @@ export const isPackageExists = (id: string) => {
 }
 
 export const getIconCollections = (
-  include: CollectionNames[] | "all" = "all",
+  include: CollectionNames[],
 ): Record<string, IconifyJSON> => {
   const p = callerPath()
   const cwd = p ? path.dirname(p) : process.cwd()
@@ -80,10 +94,7 @@ export const getIconCollections = (
   const files = fs.readdirSync(path.join(pkgDir, "json"))
   const collections: Record<string, IconifyJSON> = {}
   for (const file of files) {
-    if (
-      include === "all" ||
-      include.includes(file.replace(".json", "") as any)
-    ) {
+    if (include.includes(file.replace(".json", "") as any)) {
       const json: IconifyJSON = req(path.join(pkgDir, "json", file))
       collections[json.prefix] = json
     }
