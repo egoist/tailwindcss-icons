@@ -1,10 +1,9 @@
-import { IconifyJSON } from "@iconify/types"
-import { type CollectionNames, availableCollectionNames } from "../types"
-import {
-  generateComponent,
-  getIconCollections,
-  type GenerateOptions,
-} from "./core"
+import { availableCollectionNames } from "../types"
+import { generateComponent, getIconCollections } from "./core"
+
+import type { CollectionNames } from "../types"
+import type { GenerateOptions } from "./core"
+import type { IconifyJSON } from "@iconify/types"
 
 const cache = new Map<CollectionNames, IconifyJSON>()
 
@@ -26,7 +25,8 @@ export function getDynamicCSSRules(
     throw new Error(`Invalid icon name: "${icon}"`)
   }
 
-  const [prefix, name] = nameParts
+  const prefix = nameParts[0]
+  const name = nameParts[1]!
   if (!availableCollectionNames.includes(prefix as CollectionNames)) {
     throw new Error(`Invalid collection name: "${prefix}"`)
   }

@@ -1,15 +1,18 @@
-import { IconifyJSONIconsData } from "@iconify/types"
-import plugin from "tailwindcss/plugin.js"
 import { parseIconSet } from "@iconify/utils"
+import plugin from "tailwindcss/plugin.js"
+
+import { availableCollectionNames } from "../types"
 import {
-  type GenerateOptions,
   generateIconComponent,
   getIconCollections,
   isPackageExists,
 } from "./core"
 import { getDynamicCSSRules } from "./dynamic"
-import { CollectionNames, availableCollectionNames } from "../types"
-import { type Optional } from "./utils"
+
+import type { CollectionNames } from "../types"
+import type { GenerateOptions } from "./core"
+import type { Optional } from "./utils"
+import type { IconifyJSONIconsData } from "@iconify/types"
 
 export { getIconCollections, type CollectionNames }
 
@@ -50,7 +53,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     )
   const components: Record<string, Record<string, string>> = {}
 
-  for (const prefix of Object.keys(collections)) {
+  for (const prefix of Object.keys(collections) as CollectionNames[]) {
     const collection: IconifyJSONIconsData = {
       ...collections[prefix],
       prefix,
@@ -70,7 +73,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     matchComponents(
       {
         [prefix]: (value) => {
-          if (typeof value === "string") return components[value]
+          if (typeof value === "string") return components[value] ?? null
           return value
         },
       },

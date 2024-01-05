@@ -1,6 +1,7 @@
-import { test, expect } from "vitest"
 import postcss from "postcss"
 import tailwindcss from "tailwindcss"
+import { expect, test } from "vitest"
+
 import { dynamicIconsPlugin, getIconCollections, iconsPlugin } from "."
 
 test("main", async () => {

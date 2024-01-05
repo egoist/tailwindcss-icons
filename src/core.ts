@@ -1,10 +1,12 @@
-import path from "path"
 import fs from "fs"
-import { IconifyIcon, IconifyJSON } from "@iconify/types"
-import { getIconCSS, getIconData } from "@iconify/utils"
 import { createRequire } from "module"
-import { CollectionNames } from "../types"
+import path from "path"
+import { getIconCSS, getIconData } from "@iconify/utils"
+
 import { callerPath } from "./utils"
+
+import type { CollectionNames } from "../types"
+import type { IconifyIcon, IconifyJSON } from "@iconify/types"
 
 export type GenerateOptions = {
   /**
@@ -42,16 +44,16 @@ export const isPackageExists = (id: string) => {
   return Boolean(localResolve(cwd, id))
 }
 
-export const getIconCollections = (
-  include: CollectionNames[],
-): Record<string, IconifyJSON> => {
+export function getIconCollections<T extends CollectionNames>(
+  include: T[],
+): Record<T, IconifyJSON> {
   const p = callerPath()
   const cwd = p ? path.dirname(p) : process.cwd()
 
   const pkgPath = localResolve(cwd, "@iconify/json/package.json")
   if (!pkgPath) {
-    if (Array.isArray(include)) {
-      return include.reduce((result, name) => {
+    return include.reduce(
+      (result, name) => {
         const jsonPath = localResolve(cwd, `@iconify-json/${name}/icons.json`)
         if (!jsonPath) {
           throw new Error(
@@ -62,15 +64,15 @@ export const getIconCollections = (
           ...result,
           [name]: req(jsonPath),
         }
-      }, {})
-    }
-    return {}
+      },
+      {} as Record<T, IconifyJSON>,
+    )
   }
   const pkgDir = path.dirname(pkgPath)
   const files = fs.readdirSync(path.join(pkgDir, "json"))
   const collections: Record<string, IconifyJSON> = {}
   for (const file of files) {
-    if (include.includes(file.replace(".json", "") as any)) {
+    if ((include as string[]).includes(file.replace(".json", ""))) {
       const json: IconifyJSON = req(path.join(pkgDir, "json", file))
       collections[json.prefix] = json
     }
