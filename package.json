@@ -8,14 +8,14 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "exports": {
+    "types": "./dist/index.d.ts",
     "require": "./dist/index.js",
-    "import": "./dist/index.mjs",
-    "types": "./dist/index.d.ts"
+    "import": "./dist/index.mjs"
   },
   "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "scripts": {
     "build-fast": "pnpm gen-types && tsup src/index.ts --format cjs,esm",
     "build": "pnpm run build-fast --dts-resolve",
@@ -25,22 +25,23 @@
     "prepare": "pnpm run gen-types"
   },
   "license": "MIT",
+  "packageManager": "pnpm@8.14.0",
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
-    "@iconify-json/heroicons": "^1.1.16",
-    "@iconify/json": "^2.2.156",
+    "@iconify-json/heroicons": "^1.1.19",
+    "@iconify/json": "^2.2.164",
     "@iconify/types": "^2.0.0",
-    "@types/node": "^18.19.3",
-    "postcss": "^8.4.32",
+    "@types/node": "^18.19.4",
+    "postcss": "^8.4.33",
     "prettier": "3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.9",
-    "tailwindcss": "^3.3.6",
-    "tsup": "6.6.3",
-    "typescript": "4.9.5",
-    "vitest": "0.28.5"
+    "prettier-plugin-tailwindcss": "^0.5.10",
+    "tailwindcss": "^3.4.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.2"
   },
   "dependencies": {
-    "@iconify/utils": "^2.1.12"
+    "@iconify/utils": "^2.1.14"
   },
   "peerDependencies": {
     "tailwindcss": "*"
