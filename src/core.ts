@@ -86,7 +86,7 @@ export const generateIconComponent = (
 ) => {
   const css = getIconCSS(data, {})
   const rules: Record<string, string> = {}
-  css.replace(/^\s+([^:]+):\s*([^;]+);/gm, (_, prop, value) => {
+  css.replace(/^\s+([^:]+):\s*(.+);$/gm, (_, prop, value) => {
     if (prop === "width" || prop === "height") {
       rules[prop] = `${options.scale}em`
     } else {

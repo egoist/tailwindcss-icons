@@ -157,6 +157,9 @@ test("custom icon", async () => {
                     width: 20,
                     height: 20,
                   },
+                  animate: {
+                    body: `<circle fill="currentColor" stroke="none" cx="25" cy="10" r="6"><animate attributeName="opacity" dur="1s" values="0;1;0" from="0" to="1" repeatCount="indefinite" begin="0.1"/></circle>`,
+                  },
                 },
               },
             },
@@ -168,22 +171,62 @@ test("custom icon", async () => {
 .foo {
   @apply i-foo-arrow-left;
 }
+
+.bar {
+  @apply i-foo-animate;
+}
 `)
 
   expect(result.css).toMatchInlineSnapshot(`
     "
     .foo {
+
         display: inline-block;
+
         width: 1em;
+
         height: 1em;
+
         background-color: currentColor;
+
         -webkit-mask-image: var(--svg);
+
         mask-image: var(--svg);
+
         -webkit-mask-repeat: no-repeat;
+
         mask-repeat: no-repeat;
+
         -webkit-mask-size: 100% 100%;
+
         mask-size: 100% 100%;
+
         --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18'/%3E%3C/svg%3E")
+    }
+
+    .bar {
+
+        display: inline-block;
+
+        width: 1em;
+
+        height: 1em;
+
+        background-color: currentColor;
+
+        -webkit-mask-image: var(--svg);
+
+        mask-image: var(--svg);
+
+        -webkit-mask-repeat: no-repeat;
+
+        mask-repeat: no-repeat;
+
+        -webkit-mask-size: 100% 100%;
+
+        mask-size: 100% 100%;
+
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Ccircle fill='black' stroke='none' cx='25' cy='10' r='6'%3E%3Canimate attributeName='opacity' dur='1s' values='0;1;0' from='0' to='1' repeatCount='indefinite' begin='0.1'/%3E%3C/circle%3E%3C/svg%3E")
     }
     "
   `)
