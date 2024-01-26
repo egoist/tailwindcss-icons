@@ -90,6 +90,9 @@ module.exports = {
 
 Then you can use this custom icon as class name: `i-foo-arrow-left`.
 
+> [!TIP]
+> To read custom icons from directory, you can refer to [Load svgs from filesystem](https://github.com/egoist/tailwindcss-icons/issues/37)
+
 ### Generate Icon Dynamically
 
 The idea is from [@iconify/tailwind](https://iconify.design/docs/usage/css/tailwind),
