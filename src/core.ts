@@ -45,34 +45,40 @@ export const isPackageExists = (id: string) => {
 }
 
 export function getIconCollections<T extends CollectionNames>(
-  include: T[],
-): Record<T, IconifyJSON> {
+  include: T[] | "all",
+): Record<T, IconifyJSON> | Record<string, never> {
   const p = callerPath()
   const cwd = p ? path.dirname(p) : process.cwd()
 
   const pkgPath = localResolve(cwd, "@iconify/json/package.json")
   if (!pkgPath) {
-    return include.reduce(
-      (result, name) => {
-        const jsonPath = localResolve(cwd, `@iconify-json/${name}/icons.json`)
-        if (!jsonPath) {
-          throw new Error(
-            `Icon collection "${name}" not found. Please install @iconify-json/${name} or @iconify/json`,
-          )
-        }
-        return {
-          ...result,
-          [name]: req(jsonPath),
-        }
-      },
-      {} as Record<T, IconifyJSON>,
-    )
+    if (Array.isArray(include)) {
+      return include.reduce(
+        (result, name) => {
+          const jsonPath = localResolve(cwd, `@iconify-json/${name}/icons.json`)
+          if (!jsonPath) {
+            throw new Error(
+              `Icon collection "${name}" not found. Please install @iconify-json/${name} or @iconify/json`,
+            )
+          }
+          return {
+            ...result,
+            [name]: req(jsonPath),
+          }
+        },
+        {} as Record<T, IconifyJSON>,
+      )
+    }
+    return {} as Record<string, never>
   }
   const pkgDir = path.dirname(pkgPath)
   const files = fs.readdirSync(path.join(pkgDir, "json"))
   const collections: Record<string, IconifyJSON> = {}
   for (const file of files) {
-    if ((include as string[]).includes(file.replace(".json", ""))) {
+    if (
+      include === "all" ||
+      (include as string[]).includes(file.replace(".json", ""))
+    ) {
       const json: IconifyJSON = req(path.join(pkgDir, "json", file))
       collections[json.prefix] = json
     }
