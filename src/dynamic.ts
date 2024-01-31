@@ -1,4 +1,4 @@
-import { availableCollectionNames } from "../types"
+import { collectionNames } from "../types"
 import { generateComponent, getIconCollections } from "./core"
 
 import type { CollectionNames } from "../types"
@@ -27,7 +27,7 @@ export function getDynamicCSSRules(
 
   const prefix = nameParts[0]
   const name = nameParts[1]!
-  if (!availableCollectionNames.includes(prefix as CollectionNames)) {
+  if (!collectionNames.includes(prefix as CollectionNames)) {
     throw new Error(`Invalid collection name: "${prefix}"`)
   }
 

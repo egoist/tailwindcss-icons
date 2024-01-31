@@ -7,9 +7,9 @@ const collections = req("@iconify/json/collections.json")
 
 fs.writeFileSync(
   "types.ts",
-  `export const availableCollectionNames = [${Object.keys(collections)
+  `export const collectionNames = [${Object.keys(collections)
     .map((v) => JSON.stringify(v))
     .join(", ")}] as const
-/** All the available icon collections when you have \`@iconify/json\` installed  */\nexport type CollectionNames = typeof availableCollectionNames[number]
+/** All the available icon collections when you have \`@iconify/json\` installed  */\nexport type CollectionNames = typeof collectionNames[number]
 `,
 )

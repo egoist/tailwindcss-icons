@@ -1,7 +1,7 @@
 import { parseIconSet } from "@iconify/utils"
 import plugin from "tailwindcss/plugin.js"
 
-import { availableCollectionNames } from "../types"
+import { collectionNames } from "../types"
 import {
   generateIconComponent,
   getIconCollections,
@@ -14,7 +14,7 @@ import type { GenerateOptions } from "./core"
 import type { Optional } from "./utils"
 import type { IconifyJSONIconsData } from "@iconify/types"
 
-export { getIconCollections, type CollectionNames }
+export { getIconCollections, collectionNames, type CollectionNames }
 
 type CollectionNamesAlias = {
   [key in CollectionNames]?: string
@@ -47,7 +47,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
   const collections =
     propsCollections ??
     getIconCollections(
-      availableCollectionNames.filter((name) =>
+      collectionNames.filter((name) =>
         isPackageExists(`@iconify-json/${name}`),
       ),
     )
