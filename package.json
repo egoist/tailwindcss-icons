@@ -38,15 +38,15 @@
     "lint": "eslint --max-warnings 0 ."
   },
   "license": "MIT",
-  "packageManager": "pnpm@8.14.3",
+  "packageManager": "pnpm@8.15.1",
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@iconify-json/heroicons": "^1.1.19",
-    "@iconify/json": "^2.2.175",
+    "@iconify/json": "^2.2.177",
     "@iconify/types": "^2.0.0",
-    "@types/node": "^18.19.10",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
+    "@types/node": "^18.19.11",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8.4.33",
@@ -55,10 +55,10 @@
     "tailwindcss": "^3.4.1",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.2"
   },
   "dependencies": {
-    "@iconify/utils": "^2.1.19"
+    "@iconify/utils": "^2.1.20"
   },
   "peerDependencies": {
     "tailwindcss": "*"
