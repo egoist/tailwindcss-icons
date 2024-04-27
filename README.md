@@ -69,6 +69,7 @@ Search the icon you want to use here: https://icones.js.org
 | strokeWidth          | number                            | `undefined` | Stroke width for icons (this may not work for all icons) |
 | extraProperties      | Record<string, string>            | `{}`        | Extra CSS properties applied to the generated CSS.       |
 | collectionNamesAlias | [key in CollectionNames]?: string | `{}`        | Alias to customize collection names.                     |
+| collectionAliases    | Record<string, CollectionAlias>   | `{}`        | Alias for whole collections to customize all it's icons. |
 
 ### Custom Icons
 
