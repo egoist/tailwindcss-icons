@@ -21,6 +21,13 @@ export type GenerateOptions = {
    * @default `{}`
    */
   extraProperties?: Record<string, string>
+
+  /**
+   * Stroke width applied to the generated CSS.
+   *
+   * @default `undefined`
+   */
+  strokeWidth?: number
 }
 
 declare const TSUP_FORMAT: "esm" | "cjs"
@@ -90,6 +97,23 @@ export const generateIconComponent = (
   data: IconifyIcon,
   options: GenerateOptions,
 ) => {
+  if (options.strokeWidth) {
+    const strokeWidthRegex = /stroke-width="\d+"/g
+    const match = data.body.match(strokeWidthRegex)
+    const noStrokeWidth = !match
+    const isAllStrokeWidthAreEqual =
+      match && match.every((strokeWidth) => strokeWidth === match[0])
+    if (isAllStrokeWidthAreEqual) {
+      data.body = data.body.replace(
+        strokeWidthRegex,
+        `stroke-width="${options.strokeWidth}"`,
+      )
+    }
+    if (noStrokeWidth) {
+      data.body = `<g stroke-width="${options.strokeWidth}">${data.body}</g>`
+    }
+  }
+
   const css = getIconCSS(data, {})
   const rules: Record<string, string> = {}
   css.replace(/^\s+([^:]+):\s*(.+);$/gm, (_, prop, value) => {

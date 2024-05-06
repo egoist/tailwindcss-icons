@@ -32,3 +32,49 @@ test("generateComponent", () => {
     }
   `)
 })
+
+test("generate component with custom stroke width", () => {
+  const collections = getIconCollections(["lucide", "mdi", "gala"])
+
+  expect(
+    generateComponent(
+      { icons: collections["mdi"], name: "home" },
+      { strokeWidth: 1 },
+    ),
+  ).toMatchInlineSnapshot(`
+    {
+      "--svg": "url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cg stroke-width='1'%3E%3Cpath fill='black' d='M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z'/%3E%3C/g%3E%3C/svg%3E")",
+      "-webkit-mask-image": "var(--svg)",
+      "-webkit-mask-repeat": "no-repeat",
+      "-webkit-mask-size": "100% 100%",
+      "background-color": "currentColor",
+      "display": "inline-block",
+      "height": "undefinedem",
+      "mask-image": "var(--svg)",
+      "mask-repeat": "no-repeat",
+      "mask-size": "100% 100%",
+      "width": "undefinedem",
+    }
+  `)
+
+  expect(
+    generateComponent(
+      { icons: collections["lucide"], name: "home" },
+      { strokeWidth: 1 },
+    ),
+  ).toMatchInlineSnapshot(`
+    {
+      "--svg": "url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cg fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1'%3E%3Cpath d='m3 9l9-7l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpath d='M9 22V12h6v10'/%3E%3C/g%3E%3C/svg%3E")",
+      "-webkit-mask-image": "var(--svg)",
+      "-webkit-mask-repeat": "no-repeat",
+      "-webkit-mask-size": "100% 100%",
+      "background-color": "currentColor",
+      "display": "inline-block",
+      "height": "undefinedem",
+      "mask-image": "var(--svg)",
+      "mask-repeat": "no-repeat",
+      "mask-size": "100% 100%",
+      "width": "undefinedem",
+    }
+  `)
+})
