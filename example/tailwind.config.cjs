@@ -10,7 +10,7 @@ module.exports = {
     iconsPlugin({
       scale: 10,
       strokeWidth: 1,
-      collections: getIconCollections(["lucide", "mdi"]),
+      collections: getIconCollections(["lucide", "tabler"]),
     }),
     dynamicIconsPlugin({ scale: 10 }),
   ],
