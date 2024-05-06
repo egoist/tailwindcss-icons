@@ -1,7 +1,6 @@
 import process from "node:process"
 import ts from "@typescript-eslint/eslint-plugin"
 import tsParser from "@typescript-eslint/parser"
-import eslintConfigPrettier from "eslint-config-prettier"
 
 const files = ["src/**/*.ts"]
 const languageOptions = {
@@ -49,6 +48,4 @@ export default [
       "no-console": ["warn", { allow: ["warn", "error"] }],
     },
   },
-  // disable formatting rules, make sure to put this last
-  eslintConfigPrettier,
 ]
