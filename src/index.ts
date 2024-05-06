@@ -41,6 +41,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     scale = 1,
     prefix = "i",
     extraProperties = {},
+    strokeWidth,
     collectionNamesAlias = {},
   } = iconsPluginOptions ?? {}
 
@@ -65,6 +66,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
       components[`${collectionName}-${name}`] = generateIconComponent(data, {
         scale,
         extraProperties,
+        strokeWidth,
       })
     })
   }
@@ -93,13 +95,14 @@ export const dynamicIconsPlugin = (
   const {
     prefix = "i",
     scale = 1,
+    strokeWidth,
     extraProperties = {},
   } = iconsPluginOptions ?? {}
 
   return plugin(({ matchComponents }) => {
     matchComponents({
       [prefix]: (value) =>
-        getDynamicCSSRules(value, { scale, extraProperties }),
+        getDynamicCSSRules(value, { scale, extraProperties, strokeWidth }),
     })
   })
 }
