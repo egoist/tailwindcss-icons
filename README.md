@@ -18,6 +18,9 @@ npm i @egoist/tailwindcss-icons -D
 
 ## Usage
 
+> [!NOTE]
+> You still need JS configuration file to use this plugin with Tailwind CSS v4, refer to [this guide](https://tailwindcss.com/docs/v4-beta#using-legacy-configuration-files).
+
 In your `tailwind.config.js`:
 
 ```js
