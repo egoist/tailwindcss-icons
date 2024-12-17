@@ -20,6 +20,13 @@ type CollectionNamesAlias = {
   [key in CollectionNames]?: string
 }
 
+type CollectionAlias = {
+  /**
+   * Iconify Collection name
+   */
+  collection: CollectionNames
+} & GenerateOptions
+
 export type IconsPluginOptions = {
   collections?: Record<string, Optional<IconifyJSONIconsData, "prefix">>
   /**
@@ -33,6 +40,12 @@ export type IconsPluginOptions = {
    * @default `i`
    */
   prefix?: string
+  /**
+   * collection aliases to, e.g., add extra properties, without modifying all
+   *
+   * @default {}
+   */
+  collectionAliases?: Record<string, CollectionAlias>
 } & GenerateOptions
 
 export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
@@ -43,6 +56,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     extraProperties = {},
     strokeWidth,
     collectionNamesAlias = {},
+    collectionAliases = {},
   } = iconsPluginOptions ?? {}
 
   const collections =
@@ -71,11 +85,33 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
     })
   }
 
+  const filteredAliases = Object.keys(collectionAliases)
+    .map((key) => ({ key: key, alias: collectionAliases[key] }))
+    .flatMap((alias) => (alias?.alias?.collection ? [alias] : []))
+
+  for (const entry of filteredAliases) {
+    const iconCollection = getIconCollections([entry.alias!.collection])
+
+    const collection: IconifyJSONIconsData = {
+      ...iconCollection[entry.alias!.collection],
+      prefix: entry.alias!.collection,
+    }
+    parseIconSet(collection, (name, data) => {
+      if (!data) return
+      components[`${entry.key}-${name}`] = generateIconComponent(data, {
+        scale: entry.alias!.scale ?? scale,
+        extraProperties: entry.alias!.extraProperties ?? extraProperties,
+        strokeWidth: entry.alias!.strokeWidth ?? strokeWidth,
+      })
+    })
+  }
+
   return plugin(({ matchComponents }) => {
     matchComponents(
       {
         [prefix]: (value) => {
           if (typeof value === "string") return components[value] ?? null
+
           return value
         },
       },
@@ -89,7 +125,7 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
 export const dynamicIconsPlugin = (
   iconsPluginOptions?: Omit<
     IconsPluginOptions,
-    "collections" | "collectionNamesAlias"
+    "collections" | "collectionNamesAlias" | "collectionAliases"
   >,
 ) => {
   const {
