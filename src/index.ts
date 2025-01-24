@@ -35,7 +35,10 @@ export type IconsPluginOptions = {
   prefix?: string
 } & GenerateOptions
 
-export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
+type PluginFn = Parameters<typeof plugin>[0]
+const getPluginFunction = (
+  iconsPluginOptions?: IconsPluginOptions,
+): PluginFn => {
   const {
     collections: propsCollections,
     scale = 1,
@@ -70,9 +73,9 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
       })
     })
   }
-
-  return plugin(({ matchComponents }) => {
+  return ({ matchComponents }) => {
     matchComponents(
+      // @ts-expect-error figure out is this ok
       {
         [prefix]: (value) => {
           if (typeof value === "string") return components[value] ?? null
@@ -83,7 +86,11 @@ export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
         values: components,
       },
     )
-  })
+  }
+}
+
+export const iconsPlugin = (iconsPluginOptions?: IconsPluginOptions) => {
+  return plugin(getPluginFunction(iconsPluginOptions))
 }
 
 export const dynamicIconsPlugin = (
@@ -106,3 +113,7 @@ export const dynamicIconsPlugin = (
     })
   })
 }
+
+export default plugin.withOptions<IconsPluginOptions>((iconsPluginOptions) => {
+  return getPluginFunction(iconsPluginOptions)
+})
