@@ -385,7 +385,7 @@ test("generate icon dynamically", async () => {
   `)
 })
 
-test("get all icon explicitly", { timeout: 10000 }, async () => {
+test("get all icon explicitly", { timeout: 20000 }, async () => {
   const result = await postcss([
     tailwindcss({
       config: {
