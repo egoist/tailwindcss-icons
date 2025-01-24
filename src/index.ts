@@ -75,7 +75,6 @@ const getPluginFunction = (
   }
   return ({ matchComponents }) => {
     matchComponents(
-      // @ts-expect-error figure out is this ok
       {
         [prefix]: (value) => {
           if (typeof value === "string") return components[value] ?? null
